@@ -1,0 +1,15 @@
+{
+    "categorias": [
+        "Auditorías",
+        "Certificaciones",
+        "Capacitaciones"
+    ],
+    "servicios": [
+        { "id": 1, "nombre": "Auditoría Interna", "precio": 1200, "categoria": "Auditorías" },
+        { "id": 2, "nombre": "Auditoría Externa", "precio": 2500, "categoria": "Auditorías" },
+        { "id": 3, "nombre": "Certificación ISO 9001", "precio": 5000, "categoria": "Certificaciones" },
+        { "id": 4, "nombre": "Certificación ISO 14001", "precio": 4500, "categoria": "Certificaciones" },
+        { "id": 5, "nombre": "Capacitación en Auditorías Internas", "precio": 800, "categoria": "Capacitaciones" },
+        { "id": 6, "nombre": "Capacitación en Gestión de Calidad", "precio": 1000, "categoria": "Capacitaciones" }
+    ]
+}

@@ -1,0 +1,77 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #121212; /* Fondo oscuro */
+    color: #E0E0E0; /* Texto claro */
+}
+
+header {
+    background-color: #1F1F1F; /* Fondo ligeramente más claro para el encabezado */
+    color: #4CAF50; /* Verde destacado */
+    text-align: center;
+    padding: 1em 0;
+    border-bottom: 2px solid #4CAF50; /* Línea decorativa */
+}
+
+main {
+    margin: 2em auto;
+    max-width: 800px;
+    background: #1E1E1E; /* Fondo para las secciones principales */
+    padding: 1em;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+}
+
+h1, h2 {
+    margin: 0 0 1em;
+    color: #4CAF50; /* Verde destacado */
+}
+
+button {
+    padding: 0.5em 1em;
+    background-color: #4CAF50; /* Verde para los botones */
+    color: white; /* Texto blanco */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #45a049; /* Verde más oscuro al pasar el ratón */
+}
+
+.producto {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5em 0;
+    border-bottom: 1px solid #333; /* Línea separadora más tenue */
+}
+
+.producto:last-child {
+    border-bottom: none;
+}
+
+footer {
+    text-align: center;
+    padding: 1em 0;
+    margin-top: 2em;
+    background-color: #1F1F1F;
+    color: #666;
+    border-top: 2px solid #4CAF50;
+}
+
+#resumen {
+    margin-top: 1em;
+    padding: 1em;
+    background-color: #292929; /* Fondo para el resumen */
+    border-radius: 8px;
+}
+
+#resumen p {
+    margin: 0.5em 0;
+    color: #E0E0E0; /* Texto claro */
+    font-weight: bold;
+}

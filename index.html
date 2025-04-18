@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cotizador de Servicios de Auditoría de Calidad</title>
+    <link rel="stylesheet" href="estilos.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- Librería SweetAlert2 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script> <!-- Librería jsPDF -->
+</head>
+<body>
+    <header>
+        <h1>Cotizador de Servicios de Auditoría de Calidad</h1>
+    </header>
+    <main id="contenido-principal">
+        <section id="busqueda">
+            <label for="busqueda-servicio">Buscar Servicio:</label>
+            <input type="text" id="busqueda-servicio" placeholder="Ingrese palabra clave...">
+        </section>
+        <section id="info-cliente">
+            <h2>Datos del Cliente</h2>
+            <form id="form-cliente">
+                <label for="nombre-cliente">Nombre:</label>
+                <input type="text" id="nombre-cliente" required>
+                <label for="empresa-cliente">Empresa:</label>
+                <input type="text" id="empresa-cliente" required>
+                <label for="email-cliente">Correo Electrónico:</label>
+                <input type="email" id="email-cliente" required>
+                <button type="submit">Guardar Información</button>
+            </form>
+        </section>
+        <section id="lista-servicios">
+            <h2>Lista de Servicios</h2>
+            <!-- Los servicios se generarán dinámicamente desde app.js -->
+        </section>
+        <section id="carrito">
+            <h2>Resumen del Carrito</h2>
+            <div id="resumen">
+                <p>Subtotal sin IVA: $0.00</p>
+                <p>IVA (21%): $0.00</p>
+                <p>Total: $0.00</p>
+            </div>
+            <button id="exportar-pdf">Exportar a PDF</button>
+            <button id="guardar-cotizacion">Guardar Cotización</button>
+        </section>
+        <section id="cotizaciones-guardadas">
+            <h2>Cotizaciones Guardadas</h2>
+            <ul id="lista-cotizaciones">
+                <!-- Las cotizaciones guardadas se mostrarán aquí -->
+            </ul>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 Auditorías de Calidad S.A.</p>
+    </footer>
+    <script src="app.js" defer></script>
+</body>
+</html>
