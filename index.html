@@ -11,7 +11,7 @@
 <body>
     <header>
         <div class="container">
-            <h1>Cotizador de Servicios de Auditoría de Calidad</h1>
+            <h1>Servicios de Auditoría de Calidad</h1>
         </div>
     </header>
 
@@ -20,17 +20,17 @@
             <h2><i class="icono icono-usuario"></i> Datos del Cliente</h2>
             <form id="form-cliente" class="formulario">
                 <div class="form-group">
-                    <label for="nombre-cliente">Nombre Completo:</label>
+                    <label for="nombre-cliente">Nombre Completo*:</label>
                     <input type="text" id="nombre-cliente" required placeholder="Ej: Juan Pérez">
                 </div>
                 
                 <div class="form-group">
                     <label for="empresa-cliente">Empresa:</label>
-                    <input type="text" id="empresa-cliente" required placeholder="Ej: Acme Corp">
+                    <input type="text" id="empresa-cliente" placeholder="Ej: Acme Corp">
                 </div>
                 
                 <div class="form-group">
-                    <label for="email-cliente">Correo Electrónico:</label>
+                    <label for="email-cliente">Correo Electrónico*:</label>
                     <input type="email" id="email-cliente" required placeholder="Ej: contacto@empresa.com">
                 </div>
                 
@@ -41,12 +41,12 @@
                 
                 <div class="form-group">
                     <label for="observaciones">Observaciones:</label>
-                    <textarea id="observaciones" rows="4" placeholder="Describa cualquier requisito especial o nota importante..." maxlength="500"></textarea>
+                    <textarea id="observaciones" rows="4" placeholder="Describa cualquier requisito especial..." maxlength="500"></textarea>
                     <div id="contador-observaciones" class="contador">0/500 caracteres</div>
                 </div>
                 
                 <button type="submit" class="boton-primario">
-                    <i class="icono icono-guardar"></i> Guardar Información
+                    <i class="icono icono-guardar"></i> Guardar Datos
                 </button>
             </form>
         </section>
@@ -54,12 +54,20 @@
         <section id="lista-servicios" class="seccion">
             <h2><i class="icono icono-lista"></i> Servicios Disponibles</h2>
             <div id="contenedor-servicios" class="grid-servicios">
-                <!-- Los servicios se cargarán dinámicamente desde app.js -->
+                <!-- Servicios cargados dinámicamente -->
             </div>
         </section>
         
         <section id="carrito" class="seccion">
             <h2><i class="icono icono-carrito"></i> Resumen de Cotización</h2>
+            
+            <div id="lista-carrito" class="lista-carrito">
+                <h3>Servicios seleccionados:</h3>
+                <ul id="items-carrito">
+                    <!-- Items del carrito -->
+                </ul>
+            </div>
+            
             <div id="resumen" class="resumen-cotizacion">
                 <div class="resumen-item">
                     <span>Subtotal sin IVA:</span>
@@ -76,27 +84,27 @@
             </div>
             
             <div class="acciones">
-                <button id="exportar-pdf" class="boton-primario">
+                <button id="exportar-pdf" class="boton-primario" disabled>
                     <i class="icono icono-pdf"></i> Exportar a PDF
                 </button>
-                <button id="guardar-cotizacion" class="boton-secundario">
+                <button id="guardar-cotizacion" class="boton-secundario" disabled>
                     <i class="icono icono-guardar"></i> Guardar Cotización
                 </button>
             </div>
         </section>
         
         <section id="cotizaciones-guardadas" class="seccion">
-            <h2><i class="icono icono-historial"></i> Historial de Cotizaciones</h2>
+            <h2><i class="icono icono-historial"></i> Historial</h2>
             <ul id="lista-cotizaciones" class="lista-cotizaciones">
-                <!-- Las cotizaciones guardadas se cargarán dinámicamente -->
+                <!-- Cotizaciones guardadas -->
             </ul>
         </section>
     </main>
 
     <footer>
         <div class="container">
-            <p>&copy; 2023 Sistema de Cotizaciones de Auditoría</p>
-            <p class="version">Versión 2.1.0</p>
+            <p>&copy; 2025 Qualità Desarrollo y Auditorias</p>
+            <p class="version">Versión 2.2.0</p>
         </div>
     </footer>
 

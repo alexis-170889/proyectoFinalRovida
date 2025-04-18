@@ -41,6 +41,20 @@
             "precio": 280000,
             "categoria": "Auditorías",
             "descripcion": "Evaluación de planes de continuidad del negocio según norma ISO 22301"
+        },
+        {
+            "id": 7,
+            "nombre": "Implementación ISO 14001",
+            "precio": 180000,
+            "categoria": "Consultoría",
+            "descripcion": "Asesoría para implementación de sistema de gestión ambiental"
+        },
+        {
+            "id": 8,
+            "nombre": "Auditoría de Seguridad de la Información ISO 27001",
+            "precio": 240000,
+            "categoria": "Auditorías",
+            "descripcion": "Evaluación de controles de seguridad de la información"
         }
     ]
 }
