@@ -2,31 +2,45 @@
     "servicios": [
         {
             "id": 1,
-            "nombre": "Auditoría Interna ISO 9001",
-            "precio": 120000,
+            "nombre": "Auditoría Interna ISO 9001:2015",
+            "precio": 150000,
             "categoria": "Auditorías",
-            "descripcion": "Evaluación de cumplimiento de la norma ISO 9001:2015"
+            "descripcion": "Evaluación completa del sistema de gestión de calidad según norma ISO 9001:2015"
         },
         {
             "id": 2,
             "nombre": "Certificación de Procesos",
-            "precio": 25000,
+            "precio": 30000,
             "categoria": "Certificaciones",
-            "descripcion": "Certificación oficial de procesos internos"
+            "descripcion": "Certificación oficial de procesos internos con validez internacional"
         },
         {
             "id": 3,
-            "nombre": "Capacitación en Normativas",
+            "nombre": "Capacitación en Normativas ISO",
             "precio": 80000,
             "categoria": "Capacitaciones",
-            "descripcion": "Curso intensivo sobre normativas de calidad"
+            "descripcion": "Curso intensivo de 20 horas sobre implementación de normativas ISO"
         },
         {
             "id": 4,
-            "nombre": "Auditoría de Seguridad",
-            "precio": 180000,
+            "nombre": "Auditoría de Seguridad ISO 45001",
+            "precio": 220000,
             "categoria": "Auditorías",
-            "descripcion": "Evaluación de protocolos de seguridad industrial"
+            "descripcion": "Evaluación del sistema de gestión de seguridad y salud en el trabajo"
+        },
+        {
+            "id": 5,
+            "nombre": "Consultoría Personalizada",
+            "precio": 250000,
+            "categoria": "Consultoría",
+            "descripcion": "Sesiones personalizadas para implementación de sistemas de calidad"
+        },
+        {
+            "id": 6,
+            "nombre": "Auditoría de Continuidad del Negocio ISO 22301",
+            "precio": 280000,
+            "categoria": "Auditorías",
+            "descripcion": "Evaluación de planes de continuidad del negocio según norma ISO 22301"
         }
     ]
 }

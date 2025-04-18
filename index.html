@@ -10,68 +10,96 @@
 </head>
 <body>
     <header>
-        <h1>Cotizador de Servicios de Auditoría de Calidad</h1>
+        <div class="container">
+            <h1>Cotizador de Servicios de Auditoría de Calidad</h1>
+        </div>
     </header>
-    <main id="contenido-principal">
-        <section id="info-cliente">
-            <h2>Datos del Cliente</h2>
-            <form id="form-cliente">
+
+    <main class="container">
+        <section id="info-cliente" class="seccion">
+            <h2><i class="icono icono-usuario"></i> Datos del Cliente</h2>
+            <form id="form-cliente" class="formulario">
                 <div class="form-group">
-                    <label for="nombre-cliente">Nombre:</label>
-                    <input type="text" id="nombre-cliente" required>
+                    <label for="nombre-cliente">Nombre Completo:</label>
+                    <input type="text" id="nombre-cliente" required placeholder="Ej: Juan Pérez">
                 </div>
                 
                 <div class="form-group">
                     <label for="empresa-cliente">Empresa:</label>
-                    <input type="text" id="empresa-cliente" required>
+                    <input type="text" id="empresa-cliente" required placeholder="Ej: Acme Corp">
                 </div>
                 
                 <div class="form-group">
                     <label for="email-cliente">Correo Electrónico:</label>
-                    <input type="email" id="email-cliente" required>
+                    <input type="email" id="email-cliente" required placeholder="Ej: contacto@empresa.com">
                 </div>
                 
                 <div class="form-group">
                     <label for="telefono-cliente">Teléfono:</label>
-                    <input type="tel" id="telefono-cliente">
+                    <input type="tel" id="telefono-cliente" placeholder="Ej: +52 55 1234 5678">
                 </div>
                 
                 <div class="form-group">
                     <label for="observaciones">Observaciones:</label>
-                    <textarea id="observaciones" rows="4" placeholder="Notas adicionales sobre la cotización" maxlength="500"></textarea>
+                    <textarea id="observaciones" rows="4" placeholder="Describa cualquier requisito especial o nota importante..." maxlength="500"></textarea>
                     <div id="contador-observaciones" class="contador">0/500 caracteres</div>
                 </div>
                 
-                <button type="submit" class="boton-primario">Guardar Información</button>
+                <button type="submit" class="boton-primario">
+                    <i class="icono icono-guardar"></i> Guardar Información
+                </button>
             </form>
         </section>
         
-        <section id="lista-servicios">
-            <h2>Lista de Servicios</h2>
-            <div id="contenedor-servicios"></div>
+        <section id="lista-servicios" class="seccion">
+            <h2><i class="icono icono-lista"></i> Servicios Disponibles</h2>
+            <div id="contenedor-servicios" class="grid-servicios">
+                <!-- Los servicios se cargarán dinámicamente desde app.js -->
+            </div>
         </section>
         
-        <section id="carrito">
-            <h2>Resumen del Carrito</h2>
-            <div id="resumen">
-                <p>Subtotal sin IVA: $0.00</p>
-                <p>IVA (21%): $0.00</p>
-                <p>Total: $0.00</p>
+        <section id="carrito" class="seccion">
+            <h2><i class="icono icono-carrito"></i> Resumen de Cotización</h2>
+            <div id="resumen" class="resumen-cotizacion">
+                <div class="resumen-item">
+                    <span>Subtotal sin IVA:</span>
+                    <span>$0.00</span>
+                </div>
+                <div class="resumen-item">
+                    <span>IVA (21%):</span>
+                    <span>$0.00</span>
+                </div>
+                <div class="resumen-item total">
+                    <span>Total:</span>
+                    <span>$0.00</span>
+                </div>
             </div>
+            
             <div class="acciones">
-                <button id="exportar-pdf" class="boton-primario">Exportar a PDF</button>
-                <button id="guardar-cotizacion" class="boton-secundario">Guardar Cotización</button>
+                <button id="exportar-pdf" class="boton-primario">
+                    <i class="icono icono-pdf"></i> Exportar a PDF
+                </button>
+                <button id="guardar-cotizacion" class="boton-secundario">
+                    <i class="icono icono-guardar"></i> Guardar Cotización
+                </button>
             </div>
         </section>
         
-        <section id="cotizaciones-guardadas">
-            <h2>Cotizaciones Guardadas</h2>
-            <ul id="lista-cotizaciones"></ul>
+        <section id="cotizaciones-guardadas" class="seccion">
+            <h2><i class="icono icono-historial"></i> Historial de Cotizaciones</h2>
+            <ul id="lista-cotizaciones" class="lista-cotizaciones">
+                <!-- Las cotizaciones guardadas se cargarán dinámicamente -->
+            </ul>
         </section>
     </main>
+
     <footer>
-        <p>&copy; 2025 Auditorías de Calidad S.A.</p>
+        <div class="container">
+            <p>&copy; 2023 Sistema de Cotizaciones de Auditoría</p>
+            <p class="version">Versión 2.1.0</p>
+        </div>
     </footer>
+
     <script src="app.js" defer></script>
 </body>
 </html>
