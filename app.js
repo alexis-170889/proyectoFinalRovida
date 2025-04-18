@@ -1,159 +1,252 @@
+// Variables globales
 let carrito = [];
 let cotizacionesGuardadas = [];
-let serviciosGlobal = []; // Para almacenar todos los servicios
+let serviciosDisponibles = [];
+let datosCliente = {
+    nombre: '',
+    empresa: '',
+    email: '',
+    telefono: '',
+    observaciones: ''
+};
 
-// Referencias al DOM
-const listaServicios = document.getElementById('lista-servicios');
-const resumenDiv = document.getElementById('resumen');
-const guardarCotizacionBtn = document.getElementById('guardar-cotizacion');
-const exportarPDFBtn = document.getElementById('exportar-pdf');
-const listaCotizaciones = document.getElementById('lista-cotizaciones');
-const busquedaServicio = document.getElementById('busqueda-servicio');
-const formCliente = document.getElementById('form-cliente');
+// Elementos del DOM
+const DOM = {
+    formulario: document.getElementById('form-cliente'),
+    contenedorServicios: document.getElementById('contenedor-servicios'),
+    resumen: document.getElementById('resumen'),
+    exportarBtn: document.getElementById('exportar-pdf'),
+    guardarBtn: document.getElementById('guardar-cotizacion'),
+    listaCotizaciones: document.getElementById('lista-cotizaciones'),
+    contadorObservaciones: document.getElementById('contador-observaciones')
+};
 
-// Cargar datos desde JSON
+// Inicialización
+document.addEventListener('DOMContentLoaded', () => {
+    cargarServicios();
+    cargarCotizacionesGuardadas();
+    configurarEventos();
+});
+
+// Configuración de eventos
+function configurarEventos() {
+    // Formulario
+    DOM.formulario.addEventListener('submit', guardarDatosCliente);
+    
+    // Observaciones
+    document.getElementById('observaciones').addEventListener('input', actualizarContador);
+    
+    // Botones
+    DOM.exportarBtn.addEventListener('click', generarPDF);
+    DOM.guardarBtn.addEventListener('click', guardarCotizacion);
+    
+    // Delegación de eventos para servicios
+    DOM.contenedorServicios.addEventListener('click', manejarClickServicio);
+}
+
+// Cargar servicios desde JSON
 async function cargarServicios() {
     try {
         const respuesta = await fetch('datos.json');
         const datos = await respuesta.json();
-        serviciosGlobal = datos.servicios; // Guardar servicios globalmente
-        generarServicios(serviciosGlobal);
+        serviciosDisponibles = datos.servicios;
+        renderizarServicios(serviciosDisponibles);
     } catch (error) {
-        console.error("Error al cargar servicios:", error);
-        Swal.fire('Error', 'No se pudieron cargar los servicios', 'error');
+        mostrarError('Error al cargar los servicios');
     }
 }
 
-// Generar servicios dinámicamente
-function generarServicios(servicios) {
-    listaServicios.innerHTML = '';
-    servicios.forEach((servicio) => {
-        const div = document.createElement('div');
-        div.classList.add('producto');
-        div.innerHTML = `
-            <span>${servicio.nombre} - $${servicio.precio}</span>
-            <button data-id="${servicio.id}" data-nombre="${servicio.nombre}" data-precio="${servicio.precio}">Agregar</button>
-        `;
-        listaServicios.appendChild(div);
-    });
+// Renderizar servicios
+function renderizarServicios(servicios) {
+    DOM.contenedorServicios.innerHTML = servicios.map(servicio => `
+        <div class="servicio" data-id="${servicio.id}">
+            <div>
+                <h3>${servicio.nombre}</h3>
+                <p>${servicio.categoria}</p>
+            </div>
+            <div>
+                <span class="precio">$${servicio.precio.toFixed(2)}</span>
+                <button class="boton-primario">Agregar</button>
+            </div>
+        </div>
+    `).join('');
+}
+
+// Manejar clicks en servicios
+function manejarClickServicio(e) {
+    if (e.target.tagName === 'BUTTON') {
+        const servicioDiv = e.target.closest('.servicio');
+        const id = parseInt(servicioDiv.dataset.id);
+        const servicio = serviciosDisponibles.find(s => s.id === id);
+        
+        if (servicio) {
+            carrito.push({...servicio});
+            actualizarResumen();
+            mostrarExito(`${servicio.nombre} agregado al carrito`);
+        }
+    }
 }
 
 // Actualizar resumen del carrito
 function actualizarResumen() {
-    const subtotal = carrito.reduce((acc, item) => acc + item.precio, 0);
+    const subtotal = carrito.reduce((total, item) => total + item.precio, 0);
     const iva = subtotal * 0.21;
     const total = subtotal + iva;
-
-    resumenDiv.innerHTML = `
+    
+    DOM.resumen.innerHTML = `
         <p>Subtotal sin IVA: $${subtotal.toFixed(2)}</p>
         <p>IVA (21%): $${iva.toFixed(2)}</p>
         <p>Total: $${total.toFixed(2)}</p>
     `;
 }
 
-// Exportar a PDF
-function exportarPDF() {
+// Guardar datos del cliente
+function guardarDatosCliente(e) {
+    e.preventDefault();
+    
+    datosCliente = {
+        nombre: document.getElementById('nombre-cliente').value,
+        empresa: document.getElementById('empresa-cliente').value,
+        email: document.getElementById('email-cliente').value,
+        telefono: document.getElementById('telefono-cliente').value,
+        observaciones: document.getElementById('observaciones').value
+    };
+    
+    mostrarExito('Datos del cliente guardados');
+}
+
+// Actualizar contador de observaciones
+function actualizarContador() {
+    const textarea = document.getElementById('observaciones');
+    DOM.contadorObservaciones.textContent = `${textarea.value.length}/500 caracteres`;
+}
+
+// Generar PDF
+function generarPDF() {
     if (carrito.length === 0) {
-        Swal.fire('Carrito vacío', 'Agrega servicios para exportar', 'warning');
+        mostrarError('Agrega servicios al carrito primero');
         return;
     }
-
-    const doc = new window.jspdf.jsPDF();
-    doc.text('Cotización de Servicios', 10, 10);
+    
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    
+    // Configuración
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(46, 90, 136); // Azul ISO
+    
+    // Encabezado
+    doc.setFontSize(20);
+    doc.text('COTIZACIÓN DE AUDITORÍA', 105, 20, { align: 'center' });
+    
+    // Datos del cliente
+    doc.setFontSize(12);
+    doc.setTextColor(0, 0, 0);
+    doc.setFont('helvetica', 'normal');
+    
+    doc.text(`Cliente: ${datosCliente.nombre || 'No especificado'}`, 20, 40);
+    doc.text(`Empresa: ${datosCliente.empresa || 'No especificada'}`, 20, 48);
+    doc.text(`Contacto: ${datosCliente.email || 'No especificado'} ${datosCliente.telefono ? '| ' + datosCliente.telefono : ''}`, 20, 56);
+    doc.text(`Observaciones: ${datosCliente.observaciones || 'Ninguna'}`, 20, 64);
+    
+    // Línea separadora
+    doc.setDrawColor(76, 175, 80); // Verde ISO
+    doc.setLineWidth(0.5);
+    doc.line(20, 70, 190, 70);
+    
+    // Servicios
+    doc.setFontSize(14);
+    doc.setTextColor(46, 90, 136);
+    doc.text('SERVICIOS COTIZADOS', 20, 80);
+    
+    doc.setFontSize(10);
+    doc.setTextColor(0, 0, 0);
+    let y = 88;
+    
     carrito.forEach((item, index) => {
-        doc.text(`${index + 1}. ${item.nombre} - $${item.precio.toFixed(2)}`, 10, 20 + index * 10);
+        doc.text(`${index + 1}. ${item.nombre}`, 20, y);
+        doc.text(`$${item.precio.toFixed(2)}`, 180, y, { align: 'right' });
+        y += 7;
     });
+    
+    // Totales
     const subtotal = carrito.reduce((acc, item) => acc + item.precio, 0);
     const iva = subtotal * 0.21;
     const total = subtotal + iva;
-    doc.text(`Subtotal sin IVA: $${subtotal.toFixed(2)}`, 10, 100);
-    doc.text(`IVA (21%): $${iva.toFixed(2)}`, 10, 110);
-    doc.text(`Total: $${total.toFixed(2)}`, 10, 120);
-    doc.save('cotizacion.pdf');
+    
+    doc.setFontSize(12);
+    doc.setFont('helvetica', 'bold');
+    doc.text('Subtotal sin IVA:', 150, y + 10);
+    doc.text(`$${subtotal.toFixed(2)}`, 180, y + 10, { align: 'right' });
+    
+    doc.text('IVA (21%):', 150, y + 18);
+    doc.text(`$${iva.toFixed(2)}`, 180, y + 18, { align: 'right' });
+    
+    doc.text('Total:', 150, y + 26);
+    doc.text(`$${total.toFixed(2)}`, 180, y + 26, { align: 'right' });
+    
+    // Pie de página
+    doc.setFontSize(8);
+    doc.setTextColor(100);
+    doc.text('Generado por el Sistema de Auditoría de Calidad', 105, 285, { align: 'center' });
+    doc.text(new Date().toLocaleDateString(), 105, 290, { align: 'center' });
+    
+    // Guardar
+    const nombreArchivo = `Cotización_${datosCliente.empresa || 'Auditoria'}_${new Date().toISOString().slice(0, 10)}.pdf`;
+    doc.save(nombreArchivo);
 }
 
 // Guardar cotización
 function guardarCotizacion() {
     if (carrito.length === 0) {
-        Swal.fire('Carrito vacío', 'Agrega servicios para guardar', 'warning');
+        mostrarError('No hay servicios en el carrito');
         return;
     }
-
+    
     const cotizacion = {
         id: Date.now(),
-        carrito: [...carrito],
         fecha: new Date().toLocaleString(),
+        cliente: {...datosCliente},
+        servicios: [...carrito],
+        total: carrito.reduce((acc, item) => acc + item.precio, 0) * 1.21
     };
+    
     cotizacionesGuardadas.push(cotizacion);
     localStorage.setItem('cotizaciones', JSON.stringify(cotizacionesGuardadas));
-    Swal.fire('Éxito', 'Cotización guardada', 'success');
-    listarCotizaciones();
+    renderizarCotizacionesGuardadas();
+    mostrarExito('Cotización guardada correctamente');
 }
 
-// Listar cotizaciones
-function listarCotizaciones() {
-    listaCotizaciones.innerHTML = '';
-    cotizacionesGuardadas.forEach((cotizacion) => {
-        const li = document.createElement('li');
-        li.innerHTML = `
-            <span>Cotización #${cotizacion.id} (${cotizacion.fecha})</span>
-            <button class="ver-cotizacion" data-id="${cotizacion.id}">Ver</button>
-        `;
-        listaCotizaciones.appendChild(li);
-    });
-
-    // Evento para ver cotizaciones
-    document.querySelectorAll('.ver-cotizacion').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            const id = parseInt(e.target.dataset.id);
-            const cotizacion = cotizacionesGuardadas.find(c => c.id === id);
-            Swal.fire({
-                title: `Cotización #${id}`,
-                html: `
-                    <p>Fecha: ${cotizacion.fecha}</p>
-                    <ul>
-                        ${cotizacion.carrito.map(item => `<li>${item.nombre} - $${item.precio}</li>`).join('')}
-                    </ul>
-                `,
-                icon: 'info'
-            });
-        });
-    });
-}
-
-// Filtrar servicios en tiempo real
-busquedaServicio.addEventListener('input', (e) => {
-    const texto = e.target.value.toLowerCase();
-    const serviciosFiltrados = serviciosGlobal.filter((item) =>
-        item.nombre.toLowerCase().includes(texto)
-    );
-    generarServicios(serviciosFiltrados);
-});
-
-// Evento para agregar servicios al carrito
-listaServicios.addEventListener('click', (e) => {
-    if (e.target.tagName === 'BUTTON' && e.target.textContent === 'Agregar') {
-        const id = parseInt(e.target.dataset.id);
-        const nombre = e.target.dataset.nombre;
-        const precio = parseFloat(e.target.dataset.precio);
-        carrito.push({ id, nombre, precio });
-        actualizarResumen();
-        Swal.fire('Agregado', `${nombre} se añadió al carrito`, 'success');
+// Cargar cotizaciones guardadas
+function cargarCotizacionesGuardadas() {
+    const guardadas = localStorage.getItem('cotizaciones');
+    if (guardadas) {
+        cotizacionesGuardadas = JSON.parse(guardadas);
+        renderizarCotizacionesGuardadas();
     }
-});
-
-// Inicializar aplicación
-function iniciarApp() {
-    // Cargar cotizaciones guardadas al inicio
-    const cotizacionesGuardadasStorage = localStorage.getItem('cotizaciones');
-    if (cotizacionesGuardadasStorage) {
-        cotizacionesGuardadas = JSON.parse(cotizacionesGuardadasStorage);
-        listarCotizaciones();
-    }
-
-    cargarServicios();
-    exportarPDFBtn.addEventListener('click', exportarPDF);
-    guardarCotizacionBtn.addEventListener('click', guardarCotizacion);
 }
 
-iniciarApp();
+// Renderizar cotizaciones guardadas
+function renderizarCotizacionesGuardadas() {
+    DOM.listaCotizaciones.innerHTML = cotizacionesGuardadas.map(cotizacion => `
+        <li>
+            <div>
+                <strong>${cotizacion.cliente.empresa || 'Sin empresa'}</strong>
+                <span>${new Date(cotizacion.id).toLocaleDateString()}</span>
+            </div>
+            <div>
+                <span>$${cotizacion.total.toFixed(2)}</span>
+                <button class="boton-secundario" data-id="${cotizacion.id}">Ver</button>
+            </div>
+        </li>
+    `).join('');
+}
+
+// Helpers
+function mostrarExito(mensaje) {
+    Swal.fire('Éxito', mensaje, 'success');
+}
+
+function mostrarError(mensaje) {
+    Swal.fire('Error', mensaje, 'error');
+}

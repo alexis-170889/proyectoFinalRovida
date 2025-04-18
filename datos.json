@@ -1,15 +1,32 @@
 {
-    "categorias": [
-        "Auditorías",
-        "Certificaciones",
-        "Capacitaciones"
-    ],
     "servicios": [
-        { "id": 1, "nombre": "Auditoría Interna", "precio": 1200, "categoria": "Auditorías" },
-        { "id": 2, "nombre": "Auditoría Externa", "precio": 2500, "categoria": "Auditorías" },
-        { "id": 3, "nombre": "Certificación ISO 9001", "precio": 5000, "categoria": "Certificaciones" },
-        { "id": 4, "nombre": "Certificación ISO 14001", "precio": 4500, "categoria": "Certificaciones" },
-        { "id": 5, "nombre": "Capacitación en Auditorías Internas", "precio": 800, "categoria": "Capacitaciones" },
-        { "id": 6, "nombre": "Capacitación en Gestión de Calidad", "precio": 1000, "categoria": "Capacitaciones" }
+        {
+            "id": 1,
+            "nombre": "Auditoría Interna ISO 9001",
+            "precio": 120000,
+            "categoria": "Auditorías",
+            "descripcion": "Evaluación de cumplimiento de la norma ISO 9001:2015"
+        },
+        {
+            "id": 2,
+            "nombre": "Certificación de Procesos",
+            "precio": 25000,
+            "categoria": "Certificaciones",
+            "descripcion": "Certificación oficial de procesos internos"
+        },
+        {
+            "id": 3,
+            "nombre": "Capacitación en Normativas",
+            "precio": 80000,
+            "categoria": "Capacitaciones",
+            "descripcion": "Curso intensivo sobre normativas de calidad"
+        },
+        {
+            "id": 4,
+            "nombre": "Auditoría de Seguridad",
+            "precio": 180000,
+            "categoria": "Auditorías",
+            "descripcion": "Evaluación de protocolos de seguridad industrial"
+        }
     ]
 }
