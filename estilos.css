@@ -1,6 +1,6 @@
 :root {
     /* Paleta ISO */
-    --azul-iso: #092038;
+    --azul-iso: #000000;
     --verde-certificacion: #969c97;
     --gris-profesional: #333333;
     --gris-medio: #555555;
@@ -47,6 +47,17 @@ header {
     text-align: center;
     border-bottom: 3px solid var(--verde-certificacion);
     box-shadow: var(--sombra-profesional);
+}
+/* Estilos para el logo */
+.logo-header {
+    height: 60px;
+    margin-bottom: 15px;
+}
+
+.logo-footer {
+    height: 40px;
+    margin-bottom: 10px;
+    opacity: 0.8;
 }
 
 main {
@@ -268,6 +279,7 @@ button {
 
 /* Responsive */
 @media (max-width: 768px) {
+    
     .grid-servicios {
         grid-template-columns: 1fr;
     }
@@ -294,6 +306,40 @@ button {
     .boton-quitar {
         align-self: flex-end;
     }
+}
+
+.footer-content {
+    background: #000000;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.footer-logo {
+    width: 120px;
+    margin-bottom: 1rem;
+}
+
+.footer-logo-img {
+    width: 100%;
+    height: auto;
+    opacity: 0.9;
+}
+
+.footer-brand {
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    letter-spacing: 1px;
+}
+
+.footer-contact {
+    color: #b5bbb5;
+    font-size: 0.9rem;
+    text-align: center;
 }
 
 /* SweetAlert */
