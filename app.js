@@ -351,7 +351,7 @@ function mostrarDetalleCotizacion(id) {
     });
 }
 
-// Generar PDF
+// Generar PDF nuevo
 function generarPDF() {
     if (carrito.length === 0 || !validarDatosCliente()) {
         mostrarError('Complete los datos requeridos');
@@ -370,7 +370,7 @@ function generarPDF() {
     doc.setFont(undefined, 'bold');
     doc.text('COTIZACIÓN DE AUDITORÍA', 105, 20, { align: 'center' });
     
-    // Datos del cliente
+    // Datos del cliente nuevo
     doc.setFontSize(12);
     let y = 40;
     
@@ -429,7 +429,7 @@ function generarPDF() {
     doc.save(nombreArchivo);
 }
 
-// Helpers
+// helpers nuevos
 function mostrarExito(mensaje) {
     Swal.fire({
         title: 'Éxito',

@@ -31,7 +31,7 @@
         {
             "id": 5,
             "nombre": "Consultoría Personalizada",
-            "precio": 250000,
+            "precio": 25000,
             "categoria": "Consultoría",
             "descripcion": "Sesiones personalizadas para implementación de sistemas de calidad"
         },
